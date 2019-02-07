@@ -45,9 +45,17 @@ namespace MvcWebApplication
         /// </param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // Начиная с версии 2.1 в ASP.NET Core была добавлена функциональность для соответствия некоторым принципам GDPR.
+            // Применение встроенного в ASP.NET Core функционала не означает, что приложение будет автоматически полностью соблюдает GDPR, но предоставляет некоторый базовый функционал, который при необходимости можно развить.
+            // Прежде всего в методе ConfigureServices производится настройка объекта CookiePolicyOptions, который предоставляет конфигурацию для middleware CookiePolicyMiddleware.
+            // Далее в методе Configure добавляется в конвейер обработки запроса компонент CookiePolicyMiddleware: app.UseCookiePolicy();
+            // Ссылки по теме:
+            // - https://docs.microsoft.com/ru-ru/aspnet/core/security/gdpr
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                // Для свойства CheckConsentNeeded указывается лямбда-выражение, которое возвращает true. Значение true означает, что у пользователя будет запрашиваться согласие на установку кук.
+                // При этом свойству передается не просто значение типа bool в виде true, а делегат - некоторое действие, которое в качестве параметра принимает контекст запроса HttpContext и возвращает значение bool.
+                // А это значит, что мы можем определить более сложную логику установки свойства в зависимости от деталей контекста запроса (например, проверять принадлежит ли ip-адрес Евросоюзу).
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -105,6 +113,10 @@ namespace MvcWebApplication
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // Добавляем в конвейер обработки запроса компонент CookiePolicyMiddleware реализующий базовый функционал для соответствия некоторым принципам GDPR.
+            // Конфигурирование этого middleware выполнялось в методе ConfigureServices, объект CookiePolicyOptions.
+            // Если подобная функциональность не нужна, то можно спокойно убрать добавление этого middleware тут и убрать установку CookiePolicyOptions из метода ConfigureServices.
             app.UseCookiePolicy();
 
             app.UseAuthentication();
