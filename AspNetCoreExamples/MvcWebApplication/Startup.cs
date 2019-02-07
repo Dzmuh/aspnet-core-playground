@@ -2,21 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MvcWebApplication.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using MvcWebApplication.Data;
+
 namespace MvcWebApplication
 {
+    /// <summary>
+    /// Класс Startup является входной точкой в приложение ASP.NET Core.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// При запуске приложения сначала срабатывает конструктор, затем метод <see cref="ConfigureServices"/> и в конце метод <see cref="Configure"/>.
+        /// Эти методы вызываются средой выполнения ASP.NET.
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,7 +34,15 @@ namespace MvcWebApplication
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Необязательный метод <see cref="ConfigureServices"/> регистрирует сервисы, которые используются приложением.
+        /// В качестве параметра он принимает объект <see cref="IServiceCollection"/>, который и представляет коллекцию сервисов в приложении.
+        /// С помощью методов расширений этого объекта производится конфигурация приложения для использования сервисов.
+        /// Все методы имеют форму Add[название_сервиса].
+        /// </summary>
+        /// <param name="services">
+        /// Коллекция сервисов в приложении.
+        /// </param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -35,15 +53,34 @@ namespace MvcWebApplication
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // Метод services.AddMvc() добавляет в коллекцию сервисов сервисы ApNetCore MVC.
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Метод <c>Configure</c> устанавливает, как приложение будет обрабатывать запрос. Этот метод является обязательным.
+        /// Для установки компонентов, которые обрабатывают запрос, используются методы объекта <see cref="IApplicationBuilder"/>. Объект <c>IApplicationBuilder</c> является обязательным параметром для метода <c>Configure</c>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Кроме того, метод нередко принимает еще два необязательных параметра: <see cref="IHostingEnvironment"/> и <c>ILoggerFactory</c>.
+        /// </para>
+        /// <para><c>IHostingEnvironment</c>: позволяет взаимодействовать со средой, в которой запускается приложение.</para>
+        /// <para><c>ILoggerFactory</c>: предоставляет механизм логгирования в приложении</para>
+        /// <para>
+        /// В принципе, в метод Configure в качестве параметра может передаваться любой сервис, который зарегистрирован в методе ConfigureServices или который регистрируется для приложения по умолчанию.
+        /// </para>
+        /// </remarks>
+        /// <param name="app">
+        /// Объект IApplicationBuilder является обязательным параметром для метода Configure
+        /// </param>
+        /// <param name="env">
+        /// IHostingEnvironment позволяет взаимодействовать со средой, в которой запускается приложение
+        /// </param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -72,6 +109,7 @@ namespace MvcWebApplication
 
             app.UseAuthentication();
 
+            // Метод устанавливает компоненты MVC для обработки запроса и, в частности, настраивает систему маршрутизации в приложении.
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
