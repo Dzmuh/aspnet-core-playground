@@ -51,6 +51,8 @@ namespace MvcWebApplication
             // Далее в методе Configure добавляется в конвейер обработки запроса компонент CookiePolicyMiddleware: app.UseCookiePolicy();
             // Ссылки по теме:
             // - https://docs.microsoft.com/ru-ru/aspnet/core/security/gdpr
+            // - https://docs.microsoft.com/en-us/aspnet/core/security/gdpr
+            // - https://metanit.com/sharp/aspnet5/21.5.php
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // Для свойства CheckConsentNeeded указывается лямбда-выражение, которое возвращает true. Значение true означает, что у пользователя будет запрашиваться согласие на установку кук.
@@ -91,6 +93,7 @@ namespace MvcWebApplication
         /// </param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Если проект в стадии разработки
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -98,6 +101,7 @@ namespace MvcWebApplication
             }
             else
             {
+                // Установка обработчика ошибок.
                 app.UseExceptionHandler("/Home/Error");
 
                 // С помощью метода UseHsts() объекта IApplicationBuilder мы отправляем браузеру заголовок Strict-Transport-Security, который устанавливает глобально политику работы с определенным доменом и его поддоменами.
@@ -112,6 +116,8 @@ namespace MvcWebApplication
             }
 
             app.UseHttpsRedirection();
+
+            // Установка обработчика статических файлов.
             app.UseStaticFiles();
 
             // Добавляем в конвейер обработки запроса компонент CookiePolicyMiddleware реализующий базовый функционал для соответствия некоторым принципам GDPR.
