@@ -8,18 +8,17 @@ using Microsoft.Extensions.Logging;
 
 namespace DemoWebApplication.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexPageViewModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ILogger<IndexPageViewModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexPageViewModel(ILogger<IndexPageViewModel> logger)
         {
             _logger = logger;
         }
 
         public void OnGet()
         {
-
         }
     }
 }
