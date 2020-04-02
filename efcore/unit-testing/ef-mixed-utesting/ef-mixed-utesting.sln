@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44740A18-C138-4913-BFDD-BFAFC9E12312}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfMixedUtesting.Data", "src\EfMixedUtesting.Data\EfMixedUtesting.Data.csproj", "{B78BFBF8-8002-40D9-AEBD-DF1E6C6C66BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfMixedUtesting.Tests", "test\EfMixedUtesting.Tests\EfMixedUtesting.Tests.csproj", "{956458DF-F8C1-447D-948C-D2FD99A4A82D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B78BFBF8-8002-40D9-AEBD-DF1E6C6C66BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B78BFBF8-8002-40D9-AEBD-DF1E6C6C66BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B78BFBF8-8002-40D9-AEBD-DF1E6C6C66BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B78BFBF8-8002-40D9-AEBD-DF1E6C6C66BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{956458DF-F8C1-447D-948C-D2FD99A4A82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{956458DF-F8C1-447D-948C-D2FD99A4A82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{956458DF-F8C1-447D-948C-D2FD99A4A82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{956458DF-F8C1-447D-948C-D2FD99A4A82D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A2252C7-C699-4144-8E61-3BEAD2D2CA35}
+	EndGlobalSection
+EndGlobal
