@@ -6,6 +6,6 @@ namespace EfMixedUtesting.Tests
 {
     public static class Constants
     {
-        public const int NumberOfEntitiesToAdd = 10_000;
+        public const int NumberOfEntitiesToAdd = 40_000;
     }
 }

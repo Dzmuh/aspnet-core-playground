@@ -136,5 +136,32 @@ namespace EfMixedUtesting.Tests
 
             await context.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// In-memory DB работает быстрее чем SQLite.
+        /// AddRange работает быстрее для SQLite, но тоже самое касается и In-memory DB.
+        /// </summary>
+        [Fact]
+        [Trait("Performance", "InMemory")]
+        public async Task PerformanceTestBitFaster()
+        {
+            using var context = await GetDbContext();
+
+            var articles = new List<Article>(Constants.NumberOfEntitiesToAdd);
+            for (int i = 0; i < Constants.NumberOfEntitiesToAdd; ++i)
+            {
+                articles.Add(new Article
+                {
+                    Title = "Article Title",
+                    Content = new ArticleContent
+                    {
+                        Content = "Article content"
+                    }
+                });
+            }
+
+            context.Articles.AddRange(articles);
+            await context.SaveChangesAsync();
+        }
     }
 }
