@@ -106,5 +106,32 @@ namespace EfMixedUtesting.Tests
             var articles = await context.Articles.ToListAsync();
             Assert.Empty(articles);
         }
+
+        /// <summary>
+        /// SQLite работает медленнее чем In-memory DB.
+        /// Очевидно что использование SQLite оправдано при работе с SQL запросами и когда необходимо тестировать ограничения.
+        /// </summary>
+        /// <remarks>
+        /// По поводу скорости. Тесты показывают что при использовании In-memory DB мы получаем ускорение выполнения теста в 2-ва раза.
+        /// </remarks>
+        [Fact]
+        [Trait("Performance", "SQLite")]
+        public async Task PerformanceTestSqlite()
+        {
+            using var context = await GetDbContext();
+            for (int i = 0; i < Constants.NumberOfEntitiesToAdd; ++i)
+            {
+                context.Articles.Add(new Article
+                {
+                    Title = "Article Title",
+                    Content = new ArticleContent
+                    {
+                        Content = "Article content"
+                    }
+                });
+            }
+
+            await context.SaveChangesAsync();
+        }
     }
 }

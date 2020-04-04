@@ -109,5 +109,32 @@ namespace EfMixedUtesting.Tests
             var articles = await context.Articles.ToListAsync();
             Assert.Empty(articles);
         }
+
+        /// <summary>
+        /// In-memory DB значительно быстрее чем SQLite.
+        /// Используйте её в тестах где нет необходимо тестировать ограничения и работать с SQL.
+        /// </summary>
+        /// <remarks>
+        /// По поводу скорости. Тесты показывают что при использовании In-memory DB мы получаем ускорение выполнения теста в 2-ва раза.
+        /// </remarks>
+        [Fact]
+        [Trait("Performance", "InMemory")]
+        public async Task PerformanceTestInMemory()
+        {
+            using var context = await GetDbContext();
+            for (int i = 0; i < Constants.NumberOfEntitiesToAdd; ++i)
+            {
+                context.Articles.Add(new Article
+                {
+                    Title = "Article Title",
+                    Content = new ArticleContent
+                    {
+                        Content = "Article content"
+                    }
+                });
+            }
+
+            await context.SaveChangesAsync();
+        }
     }
 }
