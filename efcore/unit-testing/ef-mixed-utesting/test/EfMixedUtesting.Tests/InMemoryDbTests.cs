@@ -44,6 +44,9 @@ namespace EfMixedUtesting.Tests
         /// При использовании In-Memory DB мы не можем выполнять SQL запросы.
         /// Этот тест проваливается и не случайно.
         /// </summary>
+        /// <remarks>
+        /// Этот тест проваливается вполне закономерно.
+        /// </remarks>
         [Fact]
         [Trait("DbDependat", "")]
         public async Task ShouldNotBeAbleToExecuteSql()
@@ -72,6 +75,39 @@ namespace EfMixedUtesting.Tests
             // Код ниже никогда не будет выполнен.
             // В коде выше мы получим System.NotImplementedException.
             Assert.Equal(id, result.First().Id);
+        }
+
+        /// <summary>
+        /// SQL позволяет проверять факт того что ограничения установлены корректно.
+        /// In-Memory DB не проверяет ограничения.
+        /// Вы можете спокойно добавлять сущности имеющие ссылки на несуществующие сущности и не получать при этом никаких исключений.
+        /// </summary>
+        /// <remarks>
+        /// Этот тест проваливается вполне закономерно.
+        /// </remarks>
+        [Fact]
+        [Trait("DbDependat", "")]
+        public async Task ShouldFailWhenIncludeIsNotUsed()
+        {
+            // Подготовка.
+            using var context = await GetDbContext();
+
+            // Добавляем сущность которая ссылается на ID несуществующей дочерней сущности.
+            context.Articles.Add(new Article
+            {
+                Title = "Article Title",
+                ContentId = Guid.NewGuid()
+            });
+
+            // Выполняем и проверяем.
+            // И тут утверждение не сработает. Не будет выброшено никакого исключения.
+            await Assert.ThrowsAsync<DbUpdateException>(
+                () => context.SaveChangesAsync());
+
+            // This line will never be reached.
+            // Эта строка пройдёт проверку в тестах с In-Memory DB.
+            var articles = await context.Articles.ToListAsync();
+            Assert.Empty(articles);
         }
     }
 }

@@ -52,7 +52,7 @@ namespace EfMixedUtesting.Tests
         [Trait("DbDependat", "")]
         public async Task ShouldBeAbleToExeuteSql()
         {
-            // Подготовка
+            // Подготовка.
             using var context = await GetDbContext();
 
             Guid id = Guid.NewGuid();
@@ -68,13 +68,43 @@ namespace EfMixedUtesting.Tests
 
             await context.SaveChangesAsync();
 
-            // Выполняем
+            // Выполняем.
             var result = await context.Articles
                 .FromSqlRaw("select * from Articles")
                 .ToListAsync();
 
             // Запрос должен получить первую запись и преобразовать byte[] в GUID.
             Assert.Equal(id, result.First().Id);
+        }
+
+        /// <summary>
+        /// SQL позволяет проверять факт того что ограничения установлены корректно.
+        /// И SQLite позволяет проверять большинство простых ограничений.
+        /// Например, при вставке сущности которая ссылается на другую связанную сущность,
+        /// SQLite проверит что вы ссылаетесь на сущность которая существует.
+        /// </summary>
+        [Fact]
+        [Trait("DbDependat", "")]
+        public async Task ShouldFailWhenIncludeIsNotUsed()
+        {
+            // Подготовка.
+            using var context = await GetDbContext();
+
+            // Добавляем сущность которая ссылается на ID несуществующей дочерней сущности.
+            context.Articles.Add(new Article
+            {
+                Title = "Article Title",
+                ContentId = Guid.NewGuid()
+            });
+
+            // Выполняем и проверяем.
+            // И получаем ожидаемое исключение.
+            await Assert.ThrowsAsync<DbUpdateException>(
+                () => context.SaveChangesAsync());
+
+            // Эта строка пройдёт проверку в тестах с SQLite.
+            var articles = await context.Articles.ToListAsync();
+            Assert.Empty(articles);
         }
     }
 }
