@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EfMixedUtesting.Data.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace EfMixedUtesting.Data
 {
@@ -8,5 +9,9 @@ namespace EfMixedUtesting.Data
             : base(options)
         {
         }
+
+        public DbSet<Article> Articles { get; set; }
+
+        public DbSet<ArticleContent> ArticleContentes { get; set; }
     }
 }
