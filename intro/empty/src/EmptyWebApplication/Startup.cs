@@ -18,16 +18,25 @@ namespace EmptyWebApplication
         {
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Компоненты middleware конфигурируются с помощью методов расширений Run, Map и Use объекта IApplicationBuilder,
+        /// который передается в метод Configure() класса Startup.
+        /// Каждый компонент может быть определен как анонимный метод (встроенный inline компонент), либо может быть вынесен в отдельный класс.
+        /// </summary>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Все вызовы типа app.UseXXX представляют собой добавление компонентов middleware для обработки запроса.
             if (env.IsDevelopment())
             {
+                // Компонент обработки ошибок - Diagnostics. Добавляется через app.UseDeveloperExceptionPage()
                 app.UseDeveloperExceptionPage();
             }
 
+            // Компонент маршрутизации - EndpointRoutingMiddleware. Добавляется через app.UseRouting()
             app.UseRouting();
 
+            // Компонент EndpointMiddleware, который отправляет ответ, если запрос пришел по маршруту "/" (то есть пользователь обратился к корню веб-приложения).
+            // Добавляется через метод app.UseEndpoints()
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context =>
@@ -35,6 +44,9 @@ namespace EmptyWebApplication
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+
+            // Порядок определения компонентов играет большую роль.
+            // Если мы изменим порядок, то приложение нормально работать не будет.
         }
     }
 }

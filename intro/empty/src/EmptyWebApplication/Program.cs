@@ -16,6 +16,14 @@ namespace EmptyWebApplication
             CreateHostBuilder(args).Build().Run();
         }
 
+        /// <summary>
+        /// Чтобы запустить приложение ASP.NET Core, необходим объект <see cref="IHost"/>, в рамках которого развертывается веб-приложение.
+        /// Для создания IHost применяется объект <see cref="IHostBuilder"/>.
+        /// </summary>
+        /// <remarks>
+        /// В статическом методе CreateHostBuilder создается и настраивается IHostBuilder.
+        /// Непосредственно создание IHostBuilder производится с помощью метода Host.CreateDefaultBuilder(args).
+        /// </remarks>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
