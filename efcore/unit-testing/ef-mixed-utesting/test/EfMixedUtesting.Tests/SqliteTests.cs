@@ -1,4 +1,4 @@
-﻿using EfMixedUtesting.Data.Domain;
+using EfMixedUtesting.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
