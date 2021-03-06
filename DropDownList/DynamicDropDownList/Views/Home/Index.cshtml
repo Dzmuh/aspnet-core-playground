@@ -5,4 +5,34 @@
 
 <text>Select a category: </text> @Html.DropDownListFor(x => x.SelectedCategory, new SelectList(Model.Categories, "Value", "Text"), "Please Select a category")
 
+<text>Select a product: </text> @Html.DropDownListFor(x => x.SelectedProduct, new SelectList(Model.Products, "Value", "Text"), "Please Select a product")
+
 @Html.ValidationMessageFor(x => x.SelectedCategory)
+
+@section PageScripts {
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#SelectedCategory").change(function () {
+
+            $.get('/Home/GetProductsForCategory/' + $(this).val(), function (response) {
+
+                //var products = $.evalJSON(response);
+                var products = $.parseJSON(response);
+                
+                var ddlSelectedProduct = $("#SelectedProduct");
+
+                // clear all previous options
+                $("#SelectedProduct > option").remove();
+
+                // populate the products
+                for (i = 0; i < products.length; i++) {
+                    ddlSelectedProduct.append($("<option />").val(products[i].Value).text(products[i].Text));
+                }
+            });
+        });
+
+    });
+</script>
+}
