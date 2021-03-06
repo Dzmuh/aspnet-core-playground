@@ -1,0 +1,8 @@
+@model ArticleEditViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<text>Select a category: </text> @Html.DropDownListFor(x => x.SelectedCategory, new SelectList(Model.Categories, "Value", "Text"), "Please Select a category")
+
+@Html.ValidationMessageFor(x => x.SelectedCategory)
