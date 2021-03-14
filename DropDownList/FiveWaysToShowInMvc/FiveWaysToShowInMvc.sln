@@ -10,7 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheUgly", "TheUgly\TheUgly.csproj", "{54ED592E-BB1E-4D23-9A5C-CECB643FD6CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBad", "TheBad\TheBad.csproj", "{3ABD0C39-8E89-41BD-A33B-40F11F2AFA3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheBad", "TheBad\TheBad.csproj", "{3ABD0C39-8E89-41BD-A33B-40F11F2AFA3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheGood", "TheGood\TheGood.csproj", "{4594AFCB-35CD-4C8E-80F9-834433B11154}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{3ABD0C39-8E89-41BD-A33B-40F11F2AFA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ABD0C39-8E89-41BD-A33B-40F11F2AFA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ABD0C39-8E89-41BD-A33B-40F11F2AFA3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4594AFCB-35CD-4C8E-80F9-834433B11154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4594AFCB-35CD-4C8E-80F9-834433B11154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4594AFCB-35CD-4C8E-80F9-834433B11154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4594AFCB-35CD-4C8E-80F9-834433B11154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
