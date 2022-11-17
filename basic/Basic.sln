@@ -5,6 +5,16 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCWebApp", "MVCWebApp\MVCWebApp.csproj", "{42A4B454-00D5-43FD-9610-83617B03EB27}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8FBBE0C0-91E6-4F1B-A00E-C4D2E17665C1}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Packages.props = Directory.Packages.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesWebApp", "RazorPagesWebApp\RazorPagesWebApp.csproj", "{12FC1131-EB7C-428E-B9D8-A8FBDA76F332}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServerApp", "BlazorServerApp\BlazorServerApp.csproj", "{C2AF87A6-06BF-4FF5-A152-FEED43FD4C8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +25,14 @@ Global
 		{42A4B454-00D5-43FD-9610-83617B03EB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42A4B454-00D5-43FD-9610-83617B03EB27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42A4B454-00D5-43FD-9610-83617B03EB27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12FC1131-EB7C-428E-B9D8-A8FBDA76F332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12FC1131-EB7C-428E-B9D8-A8FBDA76F332}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12FC1131-EB7C-428E-B9D8-A8FBDA76F332}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12FC1131-EB7C-428E-B9D8-A8FBDA76F332}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2AF87A6-06BF-4FF5-A152-FEED43FD4C8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2AF87A6-06BF-4FF5-A152-FEED43FD4C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2AF87A6-06BF-4FF5-A152-FEED43FD4C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2AF87A6-06BF-4FF5-A152-FEED43FD4C8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
