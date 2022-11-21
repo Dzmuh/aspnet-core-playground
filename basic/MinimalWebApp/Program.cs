@@ -1,4 +1,4 @@
-namespace MVCWebApp
+namespace MinimalWebApp
 {
     public class Program
     {
@@ -9,32 +9,19 @@ namespace MVCWebApp
             //
             // Для создания объекта WebApplication необходим специальный класс-строитель - WebApplicationBuilder.
             // В файле Program.cs вначале создается данный объект с помощью статического метода WebApplication.CreateBuilder:
-            //
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            // ⬆ В качестве параметра в метод передаются аргументы, которые передаются приложению при запуске.
 
             // Получив объект WebApplicationBuilder, у него вызывается метод Build(), который собствено и создает объект WebApplication:
             var app = builder.Build();
             // ⬆ С помощью объекта WebApplication можно настроить всю инфраструктуру приложения - его конфигурацию, маршруты и так далее. 
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
-            // Установка обработчика статических файлов.
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            // В файле Program.cs по умолчанию для приложения определяется один маршрут:
+            app.MapGet("/", () => "Hello World!");
+            // ⬆ 1️⃣ Метод MapGet() в качестве первого параметра принимает путь, по которому можно обратиться к приложению.
+            // В данном случае это путь "/", то есть по сути корень веб-приложения - имя домена и порта, после которых может идти слеш, например, https://localhost:7256/
+            // ⬆ 2️⃣ В качестве второго параметра в метод MapGet() передаются обработчик запроса по этому маршруту в виде функции.
+            // Здесь это лямбда-выражение, которое возвращает строку "Hello World!". Именно поэтому при обращении к приложению мы увидим данную строку в браузере.
 
             // И в конце необходимо запустить приложение.
             // Для этого у класса WebApplication вызывается метод Run():

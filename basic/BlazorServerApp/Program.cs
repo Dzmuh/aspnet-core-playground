@@ -39,6 +39,8 @@ namespace BlazorServerApp
             app.MapBlazorHub();
             app.MapFallbackToPage("/_Host");
 
+            // И в конце необходимо запустить приложение.
+            // Для этого у класса WebApplication вызывается метод Run():
             app.Run();
         }
     }

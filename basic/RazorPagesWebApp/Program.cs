@@ -32,6 +32,8 @@ namespace RazorPagesWebApp
 
             app.MapRazorPages();
 
+            // И в конце необходимо запустить приложение.
+            // Для этого у класса WebApplication вызывается метод Run():
             app.Run();
         }
     }
